@@ -6,14 +6,14 @@ import { db } from "../../../config/firebaseConfig";
 //     fieldValue: FirestoreDataTypes;
 // }
 
-// to create a new document
-export const createDocument = async <T extends { id: number }>(
+// to create a new car document
+export const createDocument = async <T extends Record<string, any>>(
     collectionName: string,
+    docId: string,
     data: T
 ): Promise<string> => {
     try {
         
-        const docId = data.id.toString();
         await db.collection(collectionName).doc(docId).set(data);
 
         // returns document id for the new post created in the firestore
