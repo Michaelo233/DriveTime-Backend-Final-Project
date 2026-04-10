@@ -6,7 +6,7 @@ import { db } from "../../../config/firebaseConfig";
 //     fieldValue: FirestoreDataTypes;
 // }
 
-// to create a new car document
+// to create a new document
 export const createDocument = async <T extends Record<string, any>>(
     collectionName: string,
     docId: string,
