@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import morgan from "morgan";
 import carRouter from "./api/v1/routes/carRoutes";
+import buyCarRouter from "./api/v1/routes/buyCarRoutes";
 const app: Express = express();
 
 // Use Morgan for HTTP request logging
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // API Routes
 app.use("/api/v1", carRouter);
+app.use("/api/v1", buyCarRouter);
 
 
 // Interface for health check response
