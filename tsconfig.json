@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "ignoreDeprecations": "6.0",
         "target": "ES6",
         "module": "commonjs",
         "strict": true,
@@ -7,6 +8,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist",
+        "rootDir": "./src",
         "resolveJsonModule": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -19,6 +21,6 @@
             "*": ["*"]
         }
     },
-    "include": ["src/**/*", "test/**/*", "config/**/*"],
+    "include": ["src/**/*", "test/**/*", "src/config/**/*", "src/config"],
     "exclude": ["node_modules", "dist"]
 }
