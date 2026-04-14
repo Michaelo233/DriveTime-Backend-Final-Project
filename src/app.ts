@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import morgan from "morgan";
 import carRouter from "./api/v1/routes/carRoutes";
 import buyCarRouter from "./api/v1/routes/buyCarRoutes";
+import setupSwagger from "./config/swagger";
 const app: Express = express();
 
 // Use Morgan for HTTP request logging
@@ -34,5 +35,8 @@ app.get("/api/v1/health", (req, res) => {
     };
     res.json(healthData);
 });
+
+// Setup Swagger
+setupSwagger(app);
 
 export default app;
