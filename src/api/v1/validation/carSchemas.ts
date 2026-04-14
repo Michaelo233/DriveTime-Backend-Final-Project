@@ -1,4 +1,103 @@
 import Joi from "joi";
+// import { register } from "node:module";
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Car:
+ *       type: object
+ *       required:
+ *         - model
+ *         - brand
+ *         - year
+ *         - price
+ *         - color
+ *       properties:
+ *         model:
+ *           type: string
+ *           description: The car model
+ *           example: "Camry"
+ *         brand:
+ *           type: string
+ *           description: The car brand
+ *           example: "Toyota"
+ *         year:
+ *           type: number
+ *           description: The car year
+ *           example: 2020
+ *         price:
+ *           type: number
+ *           description: The car price
+ *           example: 25000
+ *         color:
+ *           type: string
+ *           description: The car color
+ *           example: "Red"
+ *
+ *     CreatePostRequest:
+ *       type: object
+ *       required:
+ *         - model
+ *         - brand
+ *         - year
+ *         - price
+ *         - color
+ *       properties:
+ *         model:
+ *           type: string
+ *           example: "Camry"
+ *         brand:
+ *           type: string
+ *           example: "Toyota"
+ *         year:
+ *           type: number
+ *           example: 2020
+ *         price:
+ *           type: number
+ *           example: 100
+ *         color:
+ *           type: string
+ *           example: "Red"
+ *
+ *     UpdatePostRequest:
+ *       type: object
+ *       properties:
+ *         model:
+ *           type: string
+ *           example: "Camry"
+ *         brand:
+ *           type: string
+ *           example: "Toyota"
+ *         year:
+ *           type: number
+ *           example: 2020
+ *         price:
+ *           type: number
+ *           example: 100
+ *         color:
+ *           type: string
+ *           example: "Red"
+ *
+ *     Error:
+ *       type: object
+ *       properties:
+ *         model:
+ *           type: string
+ *           example: "model is required"
+ *         brand:
+ *           type: string
+ *           example: "brand is required"
+ *         year:
+ *           type: number
+ *           example: "year is required"
+ *         price:
+ *           type: number
+ *           example: "price is required"
+ *         color:
+ *           type: string
+ *           example: "color is required"
+ */
 
 // Post operation schemas organized by request part
 export const carSchemas = {
