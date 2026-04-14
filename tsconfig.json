@@ -8,7 +8,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": ".",
         "resolveJsonModule": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -19,8 +19,9 @@
         "baseUrl": "./",
         "paths": {
             "*": ["*"]
-        }
+        },
+        "types": ["jest", "node"]
     },
-    "include": ["src/**/*", "test/**/*", "src/config/**/*", "src/config"],
+    "include": ["src/**/*", "src/config/**/*", "src/config", "test/**/*"],
     "exclude": ["node_modules", "dist"]
 }
