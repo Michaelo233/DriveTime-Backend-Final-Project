@@ -89,3 +89,20 @@ export const deleteCarHandler = async (
         next(error);
     }
 };
+
+// filter cars by model or color
+export const filterCarsHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { model, color, brand } = req.query;
+
+        const filteredCars = await carService.filterCars({ model: model ? String(model) : undefined, color: color ? String(color) : undefined }, brand ? String(brand) : undefined);
+
+        res.status(HTTP_STATUS.OK).json(successResponse({ count: filteredCars.length, cars: filteredCars }, "Cars filtered successfully"));
+    } catch (error: unknown) {
+        res.status(HTTP_STATUS.BAD_REQUEST).json({ error: (error as Error).message });
+    }
+};
