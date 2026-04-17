@@ -9,6 +9,9 @@ import errorHandler from "./api/v1/middleWare/errorHandler";
 import carRouter from "./api/v1/routes/carRoutes";
 import buyCarRouter from "./api/v1/routes/buyCarRoutes";
 import setupSwagger from "./config/swagger";
+import adminRouter from "./api/v1/routes/adminRoutes";
+import userRouter from "./api/v1/routes/userRoutes";
+import salesRouter from "./api/v1/routes/salesRoutes";
 const app: Express = express();
 
 // Logging middleware (should be applied early in the middleware stack)
@@ -31,6 +34,12 @@ app.use(express.json());
 // API Routes
 app.use("/api/v1", carRouter);
 app.use("/api/v1", buyCarRouter);
+app.use("/api/v1", salesRouter);
+
+// Mount the user routes
+app.use("/api/v1/users", userRouter);
+// Mount the admin routes
+app.use("/api/v1/admin", adminRouter);
 
 
 // Interface for health check response

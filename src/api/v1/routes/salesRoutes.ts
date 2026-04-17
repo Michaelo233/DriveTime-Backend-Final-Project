@@ -1,7 +1,9 @@
 import express from "express";
-import { validateRequest } from "../middleWare/validate";
+// import { validateRequest } from "../middleWare/validate";
 import * as salesController from "../controllers/salesController";
-import { carSchemas } from "../validation/carSchemas";
+// import { carSchemas } from "../validation/carSchemas";
+import authenticate from "../middleWare/authenticate";
+import isAuthorized from "../middleWare/authorize";
 
 const salesRouter = express.Router();
 
@@ -28,4 +30,10 @@ const salesRouter = express.Router();
  *               $ref: '#/components/schemas/Error'
  */
 
-salesRouter.get("/sales", salesController.getAllSalesHandler);
+salesRouter.get(
+    "/sales", 
+    authenticate, 
+    isAuthorized({ hasRole: ["admin", "manager"] }), 
+    salesController.getAllSalesHandler);
+
+export default salesRouter;
