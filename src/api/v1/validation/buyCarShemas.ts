@@ -34,7 +34,6 @@ import Joi from "joi";
  *           type: number
  *           description: The total price
  *           example: 25000
- *           example: 25000
  *         color:
  *           type: string
  *           description: The car color
