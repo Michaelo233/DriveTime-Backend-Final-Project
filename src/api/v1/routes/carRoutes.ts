@@ -89,6 +89,42 @@ carRouter.post(
 
 carRouter.get("/cars", carController.getAllCarsHandler);
 
+// filter cars by model or color
+/**
+ * @openapi
+ * /cars/filter:
+ *   get:
+ *     summary: Filter cars by model or color
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: query
+ *         name: model
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The car model
+ *       - in: query
+ *         name: color
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The car color
+ *     responses:
+ *       '200':
+ *         description: Cars filtered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       '400':
+ *         description: Invalid input data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+carRouter.get("/cars/filter", carController.filterCarsHandler);
+
 /**
  * @openapi
  * /cars/{id}:
@@ -218,5 +254,7 @@ carRouter.delete(
     isAuthorized({ hasRole: ["admin"] }), 
     validateRequest(carSchemas.delete), 
     carController.deleteCarHandler);
+
+
 
 export default carRouter;
