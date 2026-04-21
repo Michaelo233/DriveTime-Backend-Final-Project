@@ -1,3 +1,6 @@
 node_modules/
 dist/
 drivetime-final-project.json
+# Logs
+logs/
+*.log

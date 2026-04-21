@@ -2,6 +2,8 @@ import express from "express";
 import { validateRequest } from "../middleWare/validate";
 import * as carController from "../controllers/carControllers";
 import { carSchemas } from "../validation/carSchemas";
+import authenticate from "../middleWare/authenticate";
+import isAuthorized from "../middleWare/authorize";
 
 const carRouter = express.Router();
 
@@ -55,7 +57,12 @@ const carRouter = express.Router();
  *               $ref: '#/components/schemas/Error'
  */
 
-carRouter.post("/cars", validateRequest(carSchemas.create), carController.createCarHandler);
+carRouter.post(
+    "/cars", 
+    authenticate, 
+    isAuthorized({ hasRole: ["admin"] }), 
+    validateRequest(carSchemas.create), 
+    carController.createCarHandler);
 
 /**
  * @openapi
@@ -81,6 +88,42 @@ carRouter.post("/cars", validateRequest(carSchemas.create), carController.create
  */
 
 carRouter.get("/cars", carController.getAllCarsHandler);
+
+// filter cars by model or color
+/**
+ * @openapi
+ * /cars/filter:
+ *   get:
+ *     summary: Filter cars by model or color
+ *     tags: [Cars]
+ *     parameters:
+ *       - in: query
+ *         name: model
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The car model
+ *       - in: query
+ *         name: color
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The car color
+ *     responses:
+ *       '200':
+ *         description: Cars filtered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       '400':
+ *         description: Invalid input data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+carRouter.get("/cars/filter", carController.filterCarsHandler);
 
 /**
  * @openapi
@@ -159,7 +202,12 @@ carRouter.get("/cars/:id", validateRequest(carSchemas.getById), carController.ge
  *               $ref: '#/components/schemas/Error'
  */
 
-carRouter.put("/cars/:id", validateRequest(carSchemas.update), carController.updateCarHandler);
+carRouter.put(
+    "/cars/:id", 
+    authenticate, 
+    isAuthorized({ hasRole: ["admin", "manager"] }), 
+    validateRequest(carSchemas.update), 
+    carController.updateCarHandler);
 
 /**
  * @openapi
@@ -200,6 +248,13 @@ carRouter.put("/cars/:id", validateRequest(carSchemas.update), carController.upd
  *               $ref: '#/components/schemas/Error'
  */
 
-carRouter.delete("/cars/:id", validateRequest(carSchemas.delete), carController.deleteCarHandler);
+carRouter.delete(
+    "/cars/:id", 
+    authenticate, 
+    isAuthorized({ hasRole: ["admin"] }), 
+    validateRequest(carSchemas.delete), 
+    carController.deleteCarHandler);
+
+
 
 export default carRouter;

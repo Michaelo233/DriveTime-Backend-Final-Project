@@ -156,3 +156,35 @@ export const deleteCar = async (id: string): Promise <void> => {
         );
     }
 };
+
+// filter cars by model or color
+export const filterCars = async (filter: {model?: string, color?: string}, brand?: string): Promise<Car[]> => {
+    try {
+        const cars = await firestoreRepository.getAllDocuments<Car>(COLLECTION);
+        
+        const filteredCars = cars.filter(car => {
+            let matches = true;
+            if (filter.model && car.model !== filter.model) {
+                matches = false;
+            }
+            if (filter.color && car.color !== filter.color) {
+                matches = false;
+            }
+            if (brand && car.brand !== brand) {
+                matches = false;
+            }
+            return matches;
+        });
+        if (filteredCars.length === 0) {
+            throw new Error("No cars found with the provided filters");
+        }
+        
+        return filteredCars;
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Unknown error";
+        throw new Error(
+            `Failed to filter cars: ${errorMessage}`
+        );
+    }
+};

@@ -144,4 +144,56 @@ describe("Car Service", () => {
             );
         });
     });
+
+    describe("filterCars", () => {
+        it("should filter cars by model and color", async () => {
+            const mockCars = [
+                {
+                    id: "Toyota Camry2020Red",
+                    carId: "Toyota Camry2020Red",
+                    model: "Toyota Camry",
+                    brand: "Toyota",
+                    year: 2020,
+                    price: "$25,000.00",
+                    color: "Red",
+                    status: "available",
+                    createdAt: '2026-04-13T00:00:00.000Z',
+                    updatedAt: '2026-04-13T00:00:00.000Z',
+                }
+            ];
+
+            mockedRepository.getAllDocuments.mockResolvedValue(mockCars);
+
+            const result = await serviceModule.filterCars({ model: "Toyota Camry", color: "Red" });
+
+            expect(result).toEqual(mockCars);
+        });
+
+        it("should return error when no cars match the filter", async () => {
+            const mockCars = [
+                {
+                    id: "Toyota Camry2020Blue",
+                    carId: "Toyota Camry2020Blue",
+                    model: "Toyota Camry",
+                    brand: "Toyota",
+                    year: 2020,
+                    price: "$25,000.00",
+                    color: "Blue",
+                    status: "available",
+                    createdAt: '2026-04-13T00:00:00.000Z',
+                    updatedAt: '2026-04-13T00:00:00.000Z',
+                }
+            ];
+
+            mockedRepository.getAllDocuments.mockResolvedValue(mockCars);
+
+            await expect(serviceModule.filterCars({ model: "Toyota Camry", color: "Red" })).rejects.toThrow(
+                "Failed to filter cars: No cars found with the provided filter"
+                        );
+
+            expect(mockedRepository.getAllDocuments).toHaveBeenCalledWith("Cars");
+
+        });
+
+    });
 });
