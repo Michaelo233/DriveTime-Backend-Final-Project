@@ -16,7 +16,10 @@ export const createBuyCarHandler = async (
         const newBuyCar = await buyCarServices.createBuyCar(buyCarData);
 
         res.status(HTTP_STATUS.OK).json(successResponse({newBuyCar}, "Buy car created successfully"));
-    } catch (error: unknown) {
-        next(error);
+    } catch (error: any) {
+        res.status(HTTP_STATUS.BAD_REQUEST).json({
+            success: false,
+            message: error.message || "Transaction Failed",
+        });
     }
 };
