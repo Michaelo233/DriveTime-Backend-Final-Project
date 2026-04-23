@@ -125,7 +125,7 @@ export const updateCar = async (id: string,
         
         updateCarData.updatedAt = new Date().toISOString(); 
 
-        await firestoreRepository.updateDocument(COLLECTION, id, updateCarData);
+        await firestoreRepository.updateDocument<Car>(COLLECTION, id, updateCarData);
 
         const updatedCar = await firestoreRepository.getDocById<Car>(COLLECTION, id);
 

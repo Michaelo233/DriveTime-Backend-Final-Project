@@ -35,7 +35,7 @@ const salesRouter = express.Router();
 salesRouter.get(
     "/sales", 
     authenticate, 
-    isAuthorized({ hasRole: ["admin", "manager"] }), 
+    isAuthorized({ hasRole: ["admin", "manager", "salesperson"] }), 
     salesController.getAllSalesHandler);
 
 export default salesRouter;

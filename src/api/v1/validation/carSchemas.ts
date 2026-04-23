@@ -127,13 +127,13 @@ export const carSchemas = {
             id: Joi.string().required(),
         }),
         body: Joi.object({
-            model: Joi.string().min(3),
-            brand: Joi.string().min(3),
-            year: Joi.number().integer().min(1886),
+            model: Joi.string().min(3).optional(),
+            brand: Joi.string().min(3).optional(),
+            year: Joi.number().integer().min(1886).optional(),
             price: Joi.alternatives().try(Joi.number(), Joi.string()).optional(),
-            color: Joi.string().min(3),
+            color: Joi.string().min(3).optional(),
             status: Joi.string().valid("available", "sold", "pending").optional(),
-        }),
+        }).min(1), // Require at least one field to update
     },
 
     // DELETE /events/:id - Delete car by ID
