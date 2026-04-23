@@ -14,6 +14,8 @@ const carRouter = express.Router();
  *   post:
  *     summary: Create a new car item
  *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -51,6 +53,18 @@ const carRouter = express.Router();
  *               $ref: '#/components/schemas/Car'
  *       '400':
  *         description: Invalid input data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '403':
+ *         description: Forbidden
  *         content:
  *           application/json:
  *             schema:
@@ -168,6 +182,8 @@ carRouter.get("/cars/:id", validateRequest(carSchemas.getById), carController.ge
  *   put:
  *     summary: Update an existing car
  *     tags: [Cars]
+ *    security:
+ *      - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -200,6 +216,18 @@ carRouter.get("/cars/:id", validateRequest(carSchemas.getById), carController.ge
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '403':
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 
 carRouter.put(
@@ -215,6 +243,8 @@ carRouter.put(
  *   delete:
  *     summary: Delete a car
  *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -242,6 +272,18 @@ carRouter.put(
  *               $ref: '#/components/schemas/Error'
  *       '404':
  *         description: Car not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '401':
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       '403':
+ *         description: Forbidden
  *         content:
  *           application/json:
  *             schema:

@@ -9,19 +9,21 @@ const salesRouter = express.Router();
 
 /**
  * @openapi
- * /sales:
+ * /cars:
  *   get:
- *     summary: Retrieve all sales
+ *     summary: Retrieve all cars
  *     tags: [Sales]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       '200':
- *         description: A list of sales
+ *         description: A list of cars
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Sale'
+ *                 $ref: '#/components/schemas/BuyCar'
  *       '500':
  *         description: Server error
  *         content:
@@ -33,7 +35,7 @@ const salesRouter = express.Router();
 salesRouter.get(
     "/sales", 
     authenticate, 
-    isAuthorized({ hasRole: ["admin", "manager"] }), 
+    isAuthorized({ hasRole: ["admin", "manager", "salesperson"] }), 
     salesController.getAllSalesHandler);
 
 export default salesRouter;
