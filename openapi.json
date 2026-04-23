@@ -1,0 +1,720 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Car Management API Documentation",
+    "version": "1.0.0",
+    "description": "This is the API documentation for the Car Management application."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "BuyCar": {
+        "type": "object",
+        "required": [
+          "customerName",
+          "customerEmail",
+          "paymentMethod",
+          "carId",
+          "totalPrice"
+        ],
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "description": "The customer's name",
+            "example": "John Doe"
+          },
+          "customerEmail": {
+            "type": "string",
+            "description": "The customer's email",
+            "example": "john.doe@example.com"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "description": "The payment method",
+            "example": "Credit Card"
+          },
+          "carId": {
+            "type": "string",
+            "description": "The car brand",
+            "example": "Toyota"
+          },
+          "totalPrice": {
+            "type": "number",
+            "description": "The total price",
+            "example": 25000
+          },
+          "color": {
+            "type": "string",
+            "description": "The car color",
+            "example": "Red"
+          }
+        }
+      },
+      "CreatePostRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "brand",
+          "year",
+          "price",
+          "color"
+        ],
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "customerEmail": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "example": "Credit Card"
+          },
+          "carId": {
+            "type": "string",
+            "example": "Toyota"
+          },
+          "totalPrice": {
+            "type": "number",
+            "example": 25000
+          },
+          "color": {
+            "type": "string",
+            "example": "Red"
+          },
+          "model": {
+            "type": "string",
+            "example": "Camry"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Toyota"
+          },
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "price": {
+            "type": "number",
+            "example": 100
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "example": "customerName is required"
+          },
+          "customerEmail": {
+            "type": "string",
+            "example": "customerEmail is required"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "example": "paymentMethod is required"
+          },
+          "carId": {
+            "type": "string",
+            "example": "carId is required"
+          },
+          "totalPrice": {
+            "type": "number",
+            "example": "totalPrice is required"
+          },
+          "model": {
+            "type": "string",
+            "example": "model is required"
+          },
+          "brand": {
+            "type": "string",
+            "example": "brand is required"
+          },
+          "year": {
+            "type": "number",
+            "example": "year is required"
+          },
+          "price": {
+            "type": "number",
+            "example": "price is required"
+          },
+          "color": {
+            "type": "string",
+            "example": "color is required"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error type or code",
+            "example": "VALIDATION_ERROR"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message",
+            "example": "user not found"
+          },
+          "details": {
+            "type": "array",
+            "post": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "example": "email"
+                },
+                "issue": {
+                  "type": "string",
+                  "example": "must be a valid email address"
+                }
+              }
+            },
+            "description": "Detailed validation errors (optional)"
+          }
+        },
+        "required": [
+          "error",
+          "message"
+        ]
+      },
+      "Car": {
+        "type": "object",
+        "required": [
+          "model",
+          "brand",
+          "year",
+          "price",
+          "color"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "The car model",
+            "example": "Camry"
+          },
+          "brand": {
+            "type": "string",
+            "description": "The car brand",
+            "example": "Toyota"
+          },
+          "year": {
+            "type": "number",
+            "description": "The car year",
+            "example": 2020
+          },
+          "price": {
+            "type": "number",
+            "description": "The car price",
+            "example": 25000
+          },
+          "color": {
+            "type": "string",
+            "description": "The car color",
+            "example": "Red"
+          }
+        }
+      },
+      "UpdatePostRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "example": "Camry"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Toyota"
+          },
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "price": {
+            "type": "number",
+            "example": 100
+          },
+          "color": {
+            "type": "string",
+            "example": "Red"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "uid",
+          "email"
+        ],
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "Unique identifier for the user",
+            "example": "user_123abc"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "admin",
+              "developer"
+            ],
+            "description": "User's role in the system"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/buy-cars": {
+      "post": {
+        "summary": "Buy a car",
+        "tags": [
+          "Car Purchases"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customerName",
+                  "customerEmail",
+                  "paymentMethod",
+                  "carId",
+                  "totalPrice"
+                ],
+                "properties": {
+                  "customerName": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "customerEmail": {
+                    "type": "string",
+                    "example": "john.doe@example.com"
+                  },
+                  "paymentMethod": {
+                    "type": "string",
+                    "example": "Credit Card"
+                  },
+                  "carId": {
+                    "type": "string",
+                    "example": "RRC Event"
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 25000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Car purchased successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "summary": "Create a new car item",
+        "tags": [
+          "Cars"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model",
+                  "brand",
+                  "year",
+                  "price",
+                  "color"
+                ],
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "example": "Camry"
+                  },
+                  "brand": {
+                    "type": "string",
+                    "example": "RRC Event"
+                  },
+                  "year": {
+                    "type": "number",
+                    "example": 2020
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "color": {
+                    "type": "string",
+                    "example": "blue"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Post created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve all cars",
+        "tags": [
+          "Sales"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuyCar"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/filter": {
+      "get": {
+        "summary": "Filter cars by model or color",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "model",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The car model"
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The car color"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cars filtered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "summary": "Get a car by ID",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Toyota Camry2020Red"
+            },
+            "description": "The car ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing car",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The car ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Car updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a car",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Toyota Camry2020Red"
+            },
+            "description": "The car ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Car deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/:id": {
+      "get": {
+        "summary": "Retrieve a single user information filtering by user ID",
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "find the user by id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid token"
+          },
+          "403": {
+            "description": "Forbidden - Admin access required"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
