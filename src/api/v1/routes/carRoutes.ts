@@ -182,8 +182,8 @@ carRouter.get("/cars/:id", validateRequest(carSchemas.getById), carController.ge
  *   put:
  *     summary: Update an existing car
  *     tags: [Cars]
- *    security:
- *      - bearerAuth: []
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
